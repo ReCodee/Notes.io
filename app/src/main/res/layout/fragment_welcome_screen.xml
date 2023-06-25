@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".otherScreens.WelcomeScreen"
+    android:orientation="vertical"
+    android:background="@color/skin">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:text="Notes.io"
+        android:fontFamily="@font/titanone_regular"
+        android:textColor="#403B36">
+    </TextView>
+    <ImageView
+        android:layout_width="500dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        android:src="@drawable/welcome_page">
+    </ImageView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:textSize="25dp"
+        android:fontFamily="@font/nunito_extrabold"
+        android:layout_gravity="center"
+        android:text="Write it down, listen better"
+        android:textColor="#403B36">
+    </TextView>
+    <TextView
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="0px"
+        android:layout_marginRight="0px"
+        android:textSize="20dp"
+        android:fontFamily="@font/nunito_regular"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:textColor="#403B36"
+        android:text="Find the simplest notes app that will help you gather all your ideas and keep track of every thing">
+    </TextView>
+    <Button
+        android:id="@+id/Get_Started"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="100px"
+        android:text="Get Started"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:fontFamily="@font/nunito_bold"
+        android:textSize="20dp"
+        android:backgroundTint="#D9614C">
+    </Button>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/nunito_bolditalic"
+        android:textColor="#D9614C"
+        android:text="Already have an account?">
+
+    </TextView>
+
+</LinearLayout>

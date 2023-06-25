@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/WelcomeFragment">
+
+    <fragment
+        android:id="@+id/WelcomeFragment"
+        android:name="com.example.notesio.otherScreens.WelcomeScreen"
+        tools:layout="@layout/fragment_welcome_screen">
+
+        <action
+            android:id="@+id/action_welcome_to_subscription"
+            app:destination="@id/SubscriptionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SubscriptionFragment"
+        android:name="com.example.notesio.otherScreens.SubscriptionScreen"
+        tools:layout="@layout/fragment_subscription_screen">
+
+        <action
+            android:id="@+id/action_subscription_to_signUp"
+            app:destination="@id/SignUpFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SignUpFragment"
+        android:name="com.example.notesio.authentication.signUp.SignUpScreen"
+        tools:layout="@layout/fragment_sign_up_screen">
+
+        <action
+            android:id="@+id/action_signUp_to_signIn"
+            app:destination="@id/SignInFragment" />
+
+        <action
+            android:id="@+id/action_signUp_to_newUser"
+            app:destination="@id/NewUserFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SignInFragment"
+        android:name="com.example.notesio.authentication.signIn.SignInScreen"
+        tools:layout="@layout/fragment_sign_in_screen">
+
+        <action
+            android:id="@+id/action_signIn_to_home"
+            app:destination="@id/HomeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/NewUserFragment"
+        android:name="com.example.notesio.otherScreens.NewUserScreen"
+        tools:layout="@layout/fragment_new_user_screen">
+
+        <action
+            android:id="@+id/action_newUser_to_editor"
+            app:destination="@id/EditorFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/HomeFragment"
+        android:name="com.example.notesio.gallery.GalleryScreen"
+        tools:layout="@layout/fragment_gallery_screen">
+
+        <action
+            android:id="@+id/action_home_to_editor"
+            app:destination="@id/EditorFragment" />
+
+        <action
+            android:id="@+id/action_home_to_settings"
+            app:destination="@id/SettingsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/EditorFragment"
+        android:name="com.example.notesio.editor.EditorScreen"
+        tools:layout="@layout/fragment_editor_screen">
+
+        <action
+            android:id="@+id/action_editor_to_home"
+            app:destination="@id/HomeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SettingsFragment"
+        android:name="com.example.notesio.settings.SettingsFragment"
+        tools:layout="@layout/fragment_settings">
+
+        <action
+            android:id="@+id/action_settings_to_home"
+            app:destination="@id/HomeFragment" />
+    </fragment>
+</navigation>
