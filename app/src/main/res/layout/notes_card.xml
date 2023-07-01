@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginBottom="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/white"
+    app:cardCornerRadius="15dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_margin="10dp">
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cerebral Palsy Report"
+            android:layout_marginBottom="10dp"
+            android:textSize="20dp"
+            android:textColor="@color/lightBrown"
+            android:fontFamily="@font/nunito_extrabold"
+            android:layout_gravity="start">
+        </TextView>
+        <TextView
+            android:id="@+id/note_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/lightBrown"
+            android:fontFamily="@font/nunito_bold"
+            android:textAlignment="textStart"
+            android:text="Cerebral palsy sport classification is a classification system used by sports that include people with cerebral palsy (CP) with different degrees of severity to compete fairly against each...">
+        </TextView>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

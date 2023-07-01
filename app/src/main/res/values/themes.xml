@@ -15,7 +15,7 @@
     </style>
 
     <style name="Theme.MyApplication.NoActionBar">
-        <item name="windowActionBar">false</item>
+        <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
     </style>
 
@@ -26,12 +26,26 @@
     <style name="TextLabel" parent="Theme.AppCompat">
 
         <!-- Hint color and label color in FALSE state -->
-        <item name="android:textColorHint">#fff</item>
-        <item name="colorPrimary">@color/white</item>
+        <item name="android:textColorHint">@color/lightBrown</item>
+        <item name="colorPrimary">@color/skin</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="editTextColor">@color/lightBrown</item>
+        <item name="android:editTextColor">@color/lightBrown</item>
+        <item name="colorControlActivated">@color/lightBrown</item>
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
 
         <!--<item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="colorControlNormal">#e34b1c</item>
         <item name="colorControlActivated">#e34b1c</item>-->
     </style>
+    <style name="cursorColor" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
+    </style>
+    <style name="CustomTheme" parent="Theme.MaterialComponents">
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetEnd">0dp</item>
+        <item name="windowActionBar">true</item>
+        <item name="colorPrimary">@color/skin</item>
+    </style>
+
 </resources>

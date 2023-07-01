@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:layout_gravity="center"
         android:text="Notes.io Premium"
         android:fontFamily="@font/nunito_extrabold"
@@ -22,7 +22,7 @@
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_gravity="center"
         android:src="@drawable/subcription_icon">
     </ImageView>
@@ -121,7 +121,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:backgroundTint="@color/white">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -129,7 +130,8 @@
                     android:textSize="10dp"
                     android:fontFamily="@font/nunito_bold"
                     android:textColor="@color/lightBrown"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/white">
                 </TextView>
                 <TextView
                     android:layout_width="wrap_content"
@@ -142,7 +144,8 @@
                     android:layout_gravity="center"
                     android:textSize="25dp"
                     android:textColor="@color/lightBrown"
-                    android:text="$79.99">
+                    android:text="$79.99"
+                    android:backgroundTint="@color/white">
                 </TextView>
                 <TextView
                     android:layout_width="wrap_content"
@@ -151,7 +154,8 @@
                     android:textSize="10dp"
                     android:fontFamily="@font/nunito_extrabold"
                     android:textColor="@color/lightBrown"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/white">
                 </TextView>
             </LinearLayout>
 
@@ -171,7 +175,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:backgroundTint="@color/white">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -179,7 +184,8 @@
                     android:textSize="10dp"
                     android:fontFamily="@font/nunito_bold"
                     android:textColor="@color/lightBrown"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/white">
                 </TextView>
                 <TextView
                     android:layout_width="wrap_content"
@@ -192,7 +198,8 @@
                     android:layout_gravity="center"
                     android:textSize="25dp"
                     android:textColor="@color/lightBrown"
-                    android:text="$7.99">
+                    android:text="$7.99"
+                    android:backgroundTint="@color/white">
                 </TextView>
                 <TextView
                     android:layout_width="wrap_content"
@@ -201,7 +208,8 @@
                     android:textSize="10dp"
                     android:fontFamily="@font/nunito_extrabold"
                     android:textColor="@color/lightBrown"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/white">
                 </TextView>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

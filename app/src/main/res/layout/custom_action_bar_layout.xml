@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/skin"
+    >
 
     <FrameLayout
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:background="@color/skin">
+        android:layout_width="match_parent">
 
         <ImageButton
             android:layout_width="50dp"
@@ -21,11 +20,11 @@
             android:background="@android:color/transparent"
             android:id="@+id/navigation_drawer" />
 
-        <!-- <View
-             android:layout_width="0dp"
-             android:layout_height="0dp"
-             android:layout_weight="1">
-         </View>-->
+       <!-- <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+        </View>-->
 
         <SearchView
             android:layout_width="wrap_content"
@@ -43,27 +42,4 @@
 
     </FrameLayout>
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/skin">
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/skin"
-    tools:context=".gallery.GalleryScreen"
-    android:orientation="vertical"
-    android:layout_marginTop="20dp">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:nestedScrollingEnabled="false"
-        android:id="@+id/recyclerView"
-        android:overScrollMode="never"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </androidx.recyclerview.widget.RecyclerView>
-
-</LinearLayout>
-</ScrollView>
 </LinearLayout>

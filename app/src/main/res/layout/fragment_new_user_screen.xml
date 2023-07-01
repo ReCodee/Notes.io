@@ -8,9 +8,12 @@
     android:orientation="vertical"
     android:background="@color/skin">
 
+   <include layout="@layout/custom_action_bar_layout" />
+
     <ImageView
         android:layout_width="300dp"
         android:layout_height="300dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/new_user"
         android:layout_gravity="center">
     </ImageView>
@@ -37,7 +40,7 @@
         android:textColor="#403B36">
     </TextView>
     <Button
-        android:id="@+id/button_first"
+        android:id="@+id/new_user_button"
         android:layout_width="250dp"
         android:layout_height="70dp"
         android:layout_gravity="center"

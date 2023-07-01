@@ -55,8 +55,8 @@
         tools:layout="@layout/fragment_new_user_screen">
 
         <action
-            android:id="@+id/action_newUser_to_editor"
-            app:destination="@id/EditorFragment" />
+            android:id="@+id/action_newUser_to_gallery"
+            app:destination="@id/HomeFragment" />
     </fragment>
 
     <fragment
@@ -77,6 +77,10 @@
         android:id="@+id/EditorFragment"
         android:name="com.example.notesio.editor.EditorScreen"
         tools:layout="@layout/fragment_editor_screen">
+
+        <argument
+            android:name="note"
+            app:argType="com.example.notesio.backend.model.NoteData" />
 
         <action
             android:id="@+id/action_editor_to_home"
