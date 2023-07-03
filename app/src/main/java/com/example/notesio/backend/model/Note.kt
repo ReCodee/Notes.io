@@ -1,14 +1,17 @@
 package com.example.notesio.backend.model
 
 import android.location.Address
+import android.os.Parcelable
 import io.realm.kotlin.types.RealmInstant
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.Ignore
 import io.realm.kotlin.types.annotations.Index
 import io.realm.kotlin.types.annotations.PrimaryKey
+import kotlinx.parcelize.Parcelize
 import org.mongodb.kbson.ObjectId
 
-class Note : RealmObject {
+@Parcelize
+class Note : RealmObject, Parcelable {
     @PrimaryKey
     var _id: ObjectId = ObjectId.invoke()
     var email: String = ""

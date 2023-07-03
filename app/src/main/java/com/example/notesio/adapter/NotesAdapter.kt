@@ -1,5 +1,6 @@
 package com.example.notesio.adapter
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,8 +23,8 @@ class NotesAdapter(private val notes:List<Note>) : RecyclerView.Adapter<NotesAda
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(note: Note) {
-            itemView.findViewById<TextView>(R.id.title_text).text = note.email
-            itemView.findViewById<TextView>(R.id.note_data).text = note.data
+            itemView.findViewById<TextView>(R.id.title_text).text = Html.fromHtml(note.email)
+            itemView.findViewById<TextView>(R.id.note_data).text = Html.fromHtml(note.data)
         }
     }
 
@@ -41,8 +42,8 @@ class NotesAdapter(private val notes:List<Note>) : RecyclerView.Adapter<NotesAda
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
          holder.bind(notes[position])
         holder.itemView.setOnClickListener{
-          val note : NoteData = NoteData(notes[position].email, notes[position].data)
-          val action = GalleryScreenDirections.actionHomeToEditor(note)
+          val note : NoteData = NoteData(notes[position].email, notes[position].data, notes[position]._id.toString())
+          val action = GalleryScreenDirections.actionHomeToEditor(notes[position])
           Navigation.findNavController(it).navigate(action)
         }
     }

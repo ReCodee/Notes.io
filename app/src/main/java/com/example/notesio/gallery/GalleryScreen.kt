@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.notesio.R
 import com.example.notesio.adapter.NotesAdapter
 import com.example.notesio.backend.model.Note
+import com.example.notesio.backend.model.NoteData
 import com.example.notesio.backend.viewmodel.NoteViewModel
 import com.example.notesio.databinding.FragmentGalleryScreenBinding
+import com.example.notesio.editor.EditorScreenDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -47,15 +49,24 @@ class GalleryScreen : Fragment() {
             Toast.makeText(context, it.size.toString(), Toast.LENGTH_SHORT).show()
         }
 
+        binding.navigationDrawer.setOnClickListener{
+            findNavController().navigate(R.id.action_home_to_settings)
+        }
+
+        binding.addButton.setOnClickListener{
+            val action = GalleryScreenDirections.actionHomeToEditor(Note())
+            findNavController().navigate(action)
+        }
+
         binding.Search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                val note = Note()
+                /*val note = Note()
                 note.email = "abhishek27082000@gmail.com"
                 note.data = query.toString()
                 val notes : MutableList<Note>? = noteViewModel.data.value?.toMutableList()
                 notes?.add(note)
                 noteViewModel.data.value = notes
-                noteViewModel.insertNote(note)
+                noteViewModel.insertNote(note)*/
                 Log.d("Submit", query.toString())
                 return false
             }

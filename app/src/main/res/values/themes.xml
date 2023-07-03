@@ -23,6 +23,10 @@
 
     <style name="Theme.MyApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/skin</item>
+    </style>
+
     <style name="TextLabel" parent="Theme.AppCompat">
 
         <!-- Hint color and label color in FALSE state -->

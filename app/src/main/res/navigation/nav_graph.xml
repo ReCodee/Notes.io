@@ -80,7 +80,7 @@
 
         <argument
             android:name="note"
-            app:argType="com.example.notesio.backend.model.NoteData" />
+            app:argType="com.example.notesio.backend.model.Note" />
 
         <action
             android:id="@+id/action_editor_to_home"
