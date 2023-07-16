@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import org.mongodb.kbson.ObjectId
 
 interface MongoRepository {
+    fun configureTheRealm()
     fun getData(): Flow<List<Note>>
     fun filterData(data: String): Flow<List<Note>>
     suspend fun insertPerson(note: Note)

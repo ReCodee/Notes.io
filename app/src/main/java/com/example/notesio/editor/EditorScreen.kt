@@ -5,30 +5,32 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.Html
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.TextUtils
+import android.text.*
 import android.text.method.LinkMovementMethod
+import android.text.style.BulletSpan
+import android.text.style.URLSpan
 import android.text.util.Linkify
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.text.HtmlCompat
+import androidx.core.text.util.LinkifyCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.notesio.HtmlParser
 import com.example.notesio.R
 import com.example.notesio.backend.model.Note
 import com.example.notesio.backend.viewmodel.NoteViewModel
 import com.example.notesio.databinding.FragmentEditorScreenBinding
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.mthli.knife.KnifeText
-import org.mongodb.kbson.BsonObjectId
-import org.mongodb.kbson.ObjectId
 import java.util.concurrent.Executors
 
 
@@ -37,7 +39,7 @@ class EditorScreen : Fragment() {
 
     private var _binding: FragmentEditorScreenBinding? = null
     private val binding get() = _binding!!
-    private lateinit var knife : KnifeText
+    private lateinit var knife : EditText
     private val noteViewModel : NoteViewModel by viewModels()
     private val args : EditorScreenArgs by navArgs()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,24 +56,37 @@ class EditorScreen : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         //val notes : MutableList<Note>? = noteViewModel.data.value?.toMutableList()
         //Log.d("Checking Other Way Round", notes?.size.toString())
         knife = binding.knife
-        Log.d("Checking Data Length", args.note._id.toString())
-        binding.knife.setText(Html.fromHtml(args.note.data))
         Log.d("Checking Safe Args", args.note.data.toString())
+        //binding.knife.setText(Html.fromHtml(args.note.data, HtmlCompat.FROM_HTML_MODE_LEGACY))
+        knife.setText(args.note.data)
+        binding.titleText.setText(args.note.title)
+        knife.movementMethod = LinkMovementMethod.getInstance()
+        knife.doAfterTextChanged { editable ->
+            // Add new links
+            LinkifyCompat.addLinks(editable ?: return@doAfterTextChanged,
+                Linkify.WEB_URLS or Linkify.EMAIL_ADDRESSES)
+        }
+        knife.setLinkTextColor(resources.getColor(R.color.orange, activity?.theme))
         //Log.d("Checking Live Data", noteData[args.index].data.toString())
-        setupBold()
+        /*setupBold()
         setupItalic()
         setupUnderline()
         setupStrikethrough()
         setupBullet()
         setupQuote()
-        setupLink()
-        setupClear()
+        setupLink()*/
+        //setupClear()
 
         binding.saveButton.setOnClickListener{
             val executor = Executors.newSingleThreadExecutor()
@@ -80,11 +95,13 @@ class EditorScreen : Fragment() {
             if ( args.note.data == "" ) {
                 //val notes = noteViewModel.data.value?.toMutableList()
                 note.email = "abhishek27082000@gmail.com"
-                note.data = Html.toHtml(binding.knife.text)
+                Log.d("Checking Get Text", knife.text.toString())
+                note.title = binding.titleText.text.toString()
+                note.data = knife.text.toString()
                 //notes?.add(note)
                 //noteViewModel.data.value = notes?.toList()
                 executor.execute {
-                    Log.d("Note Data", note.data)
+                    Log.d("Note Data 1", note.data.toString())
                     noteViewModel.insertNote(note)
                     handler.post {
                         findNavController().navigate(R.id.action_editor_to_home)
@@ -92,12 +109,13 @@ class EditorScreen : Fragment() {
                 }
             } else {
                     note.email = args.note.email
-                    note.data = Html.toHtml(knife.text)
+                    note.title = binding.titleText.text.toString()
+                    note.data = knife.text.toString()
                     note._id = args.note._id
                // notes?.add(note)
                // noteViewModel.data.value = notes?.toList()
                 executor.execute {
-                    Log.d("Note Data", note.data)
+                    Log.d("Note Data 2", note.data.toString())
                     noteViewModel.updateNote(note)
                     handler.post {
                         findNavController().navigate(R.id.action_editor_to_home)
@@ -107,15 +125,20 @@ class EditorScreen : Fragment() {
         }
     }
 
-    private fun setupBold() {
+    /*private fun setupBold() {
         val bold = binding.bold
-        //bold.setOnClickListener { knife.bold(!knife.contains(KnifeText.FORMAT_BOLD)) }
-        val start = knife.selectionStart
-        val end = knife.selectionEnd
-        val wholeText: String = knife.text.toString()
-        val selectedText: String = knife.text.substring(start, end)
-        val textItalic = "<b>$selectedText</b>"
-        knife.setText(Html.fromHtml(wholeText.replace(selectedText, textItalic)))
+        bold.setOnClickListener { knife.bold(!knife.contains(KnifeText.FORMAT_BOLD)) }
+        *//*bold.setOnClickListener{
+            val start = knife.selectionStart
+            val end = knife.selectionEnd
+            val wholeText: String = knife.text.toString()
+            val selectedText: String = knife.text.substring(start, end)
+
+            val textItalic = "<b>$selectedText</b>"
+            Log.d("Checking Bold", wholeText.replace(selectedText, textItalic))
+            knife.setText(Html.fromHtml( wholeText.replace(selectedText, textItalic)
+            ))
+        }*//*
         bold.setOnLongClickListener {
             Toast.makeText(context, "Bold", Toast.LENGTH_SHORT).show()
             true
@@ -125,13 +148,13 @@ class EditorScreen : Fragment() {
     private fun setupItalic() {
         val italic = binding.italic
         italic.setOnClickListener {
-            //knife.italic(!knife.contains(KnifeText.FORMAT_ITALIC))
-            val start = knife.selectionStart
+            knife.italic(!knife.contains(KnifeText.FORMAT_ITALIC))
+            *//*val start = knife.selectionStart
             val end = knife.selectionEnd
             val wholeText: String = knife.text.toString()
             val selectedText: String = knife.text.substring(start, end)
             val textItalic = "<i>$selectedText</i>"
-            knife.setText(Html.fromHtml(wholeText.replace(selectedText, textItalic)))
+            knife.setText(Html.fromHtml(wholeText.replace(selectedText, textItalic)))*//*
         }
         italic.setOnLongClickListener {
             Toast.makeText(context, "Italic", Toast.LENGTH_SHORT).show()
@@ -141,13 +164,15 @@ class EditorScreen : Fragment() {
 
     private fun setupUnderline() {
         val underline = binding.underline
-        //underline.setOnClickListener { knife.underline(!knife.contains(KnifeText.FORMAT_UNDERLINED)) }
-        val start = knife.selectionStart
+        underline.setOnClickListener {
+            knife.underline(!knife.contains(KnifeText.FORMAT_UNDERLINED))
+        }
+        *//*val start = knife.selectionStart
         val end = knife.selectionEnd
         val wholeText: String = knife.text.toString()
         val selectedText: String = knife.text.substring(start, end)
         val textItalic = "<u>$selectedText</u>"
-        knife.setText(Html.fromHtml(wholeText.replace(selectedText, textItalic)))
+        knife.setText(Html.fromHtml(wholeText.replace(selectedText, textItalic)))*//*
         underline.setOnLongClickListener {
             Toast.makeText(context, "Underline", Toast.LENGTH_SHORT).show()
             true
@@ -156,13 +181,15 @@ class EditorScreen : Fragment() {
 
     private fun setupStrikethrough() {
         val strikethrough = binding.strikethrough
-        //strikethrough.setOnClickListener { knife.strikethrough(!knife.contains(KnifeText.FORMAT_STRIKETHROUGH)) }
-        val start = knife.selectionStart
-        val end = knife.selectionEnd
-        val wholeText: String = knife.text.toString()
-        val selectedText: String = knife.text.substring(start, end)
-        val textItalic = "<s>$selectedText</s>"
-        knife.setText(Html.fromHtml(wholeText.replace(selectedText, textItalic)))
+        strikethrough.setOnClickListener { knife.strikethrough(!knife.contains(KnifeText.FORMAT_STRIKETHROUGH)) }
+        *//*strikethrough.setOnClickListener{
+            val start = knife.selectionStart
+            val end = knife.selectionEnd
+            val wholeText: String = knife.text.toString()
+            val selectedText: String = knife.text.substring(start, end)
+            val textItalic = "<s>$selectedText</s>"
+            knife.setText(Html.fromHtml(wholeText.replace(selectedText, textItalic)))
+        }*//*
         strikethrough.setOnLongClickListener {
             Toast.makeText(context, "Strike Through", Toast.LENGTH_SHORT)
                 .show()
@@ -173,12 +200,13 @@ class EditorScreen : Fragment() {
     private fun setupBullet() {
         val bullet = binding.bullet
         //bullet.setOnClickListener { knife.bullet(!knife.contains(KnifeText.FORMAT_BULLET)) }
-        val start = knife.selectionStart
-        val end = knife.selectionEnd
-        val wholeText: String = knife.text.toString()
-        val selectedText: String = knife.text.substring(start, end)
-        val textItalic = "<ul><li>$selectedText<li></ul>"
-        knife.setText(Html.fromHtml(wholeText.replace(selectedText, textItalic)))
+        bullet.setOnClickListener{
+            val start = knife.selectionStart
+            val end = knife.selectionEnd
+            val wholeText: Spannable = knife.getText()
+            wholeText.setSpan(BulletSpan(), start, end, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+            knife.setText(wholeText)
+        }
         bullet.setOnLongClickListener {
             Toast.makeText(context, "Bullet", Toast.LENGTH_SHORT).show()
             true
@@ -187,14 +215,14 @@ class EditorScreen : Fragment() {
 
     private fun setupQuote() {
         val quote = binding.quote
-        //quote.setOnClickListener { knife.quote(!knife.contains(KnifeText.FORMAT_QUOTE)) }
-        val start = knife.selectionStart
+        quote.setOnClickListener { knife.quote(!knife.contains(KnifeText.FORMAT_QUOTE)) }
+        *//*val start = knife.selectionStart
         val end = knife.selectionEnd
         val wholeText: String = knife.text.toString()
         val selectedText: String = knife.text.substring(start, end)
         val textItalic = "<q>$selectedText</q>"
         knife.setText(Html.fromHtml(wholeText.replace(selectedText, textItalic)))
-        quote.setOnLongClickListener {
+        *//*quote.setOnLongClickListener {
             Toast.makeText(context, "Quote", Toast.LENGTH_SHORT).show()
             true
         }
@@ -233,6 +261,14 @@ class EditorScreen : Fragment() {
                 Linkify.addLinks(spannable, Linkify.WEB_URLS)
                 val text: CharSequence = TextUtils.concat(spannable, "\u200B")
                 knife.link(text.toString(), start, end)
+                *//*val string = SpannableString("Text with a url span")
+                string.setSpan(
+                    URLSpan(link),
+                    12,
+                    15,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )*//*
+
             })
         builder.setNegativeButton("CANCEL",
             DialogInterface.OnClickListener { dialog, which ->
@@ -250,6 +286,6 @@ class EditorScreen : Fragment() {
                 .show()
             true
         }
-    }
+    }*/
 
 }

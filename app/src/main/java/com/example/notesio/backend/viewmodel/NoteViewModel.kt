@@ -7,7 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.notesio.backend.model.Note
 import com.example.notesio.backend.repository.MongoRepository
+import com.example.notesio.backend.repository.MongoRepositoryImpl
+import com.example.notesio.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.realm.kotlin.mongodb.App
+import io.realm.kotlin.mongodb.Credentials
+import io.realm.kotlin.mongodb.GoogleAuthType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
@@ -16,17 +21,15 @@ import kotlinx.coroutines.withContext
 import org.mongodb.kbson.ObjectId
 import javax.inject.Inject
 
-@HiltViewModel
-class NoteViewModel @Inject constructor(
-    private val repository: MongoRepository
-) : ViewModel() {
+
+class NoteViewModel () : ViewModel() {
     val data = MutableLiveData<List<Note>>()
     //val data: LiveData<List<Note>> = mutableData
 
 
     init {
         viewModelScope.launch {
-            repository.getData().collect {
+            MongoRepositoryImpl.filterData("abhishek27082000@gmail.com").collect {
                 data.value = it
             }
         }
@@ -41,18 +44,20 @@ class NoteViewModel @Inject constructor(
     }*/
 
 
+    @SuppressLint("SuspiciousIndentation")
     fun insertNote(note:Note) {
         viewModelScope.launch(Dispatchers.IO) {
                 /*val notes : MutableList<Note>? = data.value?.toMutableList();
                 notes?.add(note)
                 data.value = notes?.toList()*/
-                repository.insertPerson(note = Note().apply {
+            MongoRepositoryImpl.insertPerson(note = Note().apply {
                     _id = note._id
                     data = note.data
+                    title = note.title
                     email = note.email
                 })
             var refreshed : List<Note> = emptyList()
-                repository.getData().collect {
+                MongoRepositoryImpl.getData().collect {
                 refreshed = it
             }
             withContext(Dispatchers.Main) {
@@ -63,9 +68,10 @@ class NoteViewModel @Inject constructor(
 
     fun updateNote(note:Note) {
         viewModelScope.launch(Dispatchers.IO) {
-                repository.updatePerson(note = Note().apply {
+                MongoRepositoryImpl.updatePerson(note = Note().apply {
                     _id = note._id
                     email = note.email
+                    title = note.title
                     data = note.data
                 })
         }

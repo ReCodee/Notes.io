@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <HorizontalScrollView android:id="@+id/tools"
+       <!-- <HorizontalScrollView android:id="@+id/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -129,38 +129,84 @@
 
             </LinearLayout>
 
-        </HorizontalScrollView>
-
-        <io.github.mthli.knife.KnifeText
-            android:id="@+id/knife"
+        </HorizontalScrollView>-->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_above="@id/tools"
+            android:orientation="vertical">
+        <EditText
+            android:id="@+id/title_text"
+            android:layout_width="match_parent"
+            android:textSize="30sp"
             android:paddingTop="16dp"
             android:paddingLeft="16dp"
             android:paddingStart="16dp"
             android:paddingRight="16dp"
             android:paddingEnd="16dp"
+            android:layout_height="wrap_content"
+            android:hint="Title"
+            android:fontFamily="@font/nunito_extrabold"
+            android:theme="@style/TextLabel"
+            android:background="@android:color/transparent">
+        </EditText>
+        <EditText
+            android:id="@+id/knife"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp"
+            android:paddingTop="16dp"
+            android:paddingLeft="16dp"
+            android:paddingStart="16dp"
+            android:paddingRight="16dp"
+            android:paddingEnd="16dp"
+            android:hint="Notes"
             android:gravity="top|start"
             android:scrollbars="vertical"
             android:background="@android:color/transparent"
-            android:fontFamily="@font/nunito_bold"
+            android:fontFamily="@font/nunito_extrabold"
             android:autoLink="all"
             android:linksClickable="true"
             android:textIsSelectable="true"
             app:bulletColor="@color/lightBrown"
-            app:bulletRadius="10dp"
-            app:bulletGapWidth="10dp"
+            app:bulletRadius="3dp"
+            app:bulletGapWidth="5dp"
             app:historyEnable="true"
             app:historySize="99"
-            app:linkColor="@color/lightBrown"
+            app:linkColor="#D9614C"
             app:linkUnderline="true"
             app:quoteColor="@color/lightBrown"
-            app:quoteStripeWidth="10dp"
-            app:quoteCapWidth="10dp"
+            app:quoteStripeWidth="3dp"
+            app:quoteCapWidth="5dp"
             android:theme="@style/TextLabel">
-        </io.github.mthli.knife.KnifeText>
-
+        </EditText>
+            <!--<io.github.mthli.knife.KnifeText
+                android:id="@+id/alter_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingLeft="16dp"
+                android:paddingStart="16dp"
+                android:paddingRight="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="top|start"
+                android:scrollbars="vertical"
+                android:fontFamily="@font/nunito_semibold"
+                android:theme="@style/TextLabel"
+                android:autoLink="all"
+                android:linksClickable="true"
+                android:background="@android:color/transparent"
+                app:bulletColor="@color/lightBrown"
+                app:bulletRadius="10dp"
+                app:bulletGapWidth="10dp"
+                app:historyEnable="true"
+                app:historySize="99"
+                app:linkColor="@color/lightBrown"
+                app:linkUnderline="true"
+                android:textIsSelectable="true"
+                app:quoteColor="@color/lightBrown"
+                app:quoteStripeWidth="10dp"
+                app:quoteCapWidth="10dp">
+            </io.github.mthli.knife.KnifeText>-->
+        </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

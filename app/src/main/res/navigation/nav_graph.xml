@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_welcome_to_subscription"
             app:destination="@id/SubscriptionFragment" />
+        <action
+            android:id="@+id/action_welcome_to_new_user"
+            app:destination="@id/NewUserFragment" />
     </fragment>
 
     <fragment
@@ -95,5 +98,29 @@
         <action
             android:id="@+id/action_settings_to_home"
             app:destination="@id/HomeFragment" />
+        <action
+            android:id="@+id/action_settings_to_editProfile"
+            app:destination="@id/EditProfileFragment" />
+        <action
+            android:id="@+id/action_settings_to_theme"
+            app:destination="@id/AppThemeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/EditProfileFragment"
+        android:name="com.example.notesio.settings.EditProfileFragment"
+        tools:layout="@layout/fragment_edit_profile">
+
+        <action
+            android:id="@+id/action_profile_to_settings"
+            app:destination="@id/SettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/AppThemeFragment"
+        android:name="com.example.notesio.settings.AppThemeFragment"
+        tools:layout="@layout/fragment_app_theme">
+
+        <action
+            android:id="@+id/action_theme_to_settings"
+            app:destination="@id/SettingsFragment" />
     </fragment>
 </navigation>

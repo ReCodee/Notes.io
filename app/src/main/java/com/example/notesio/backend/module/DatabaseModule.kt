@@ -14,7 +14,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object DatabaseModule {
-    @Singleton
+  /*  @Singleton
     @Provides
     fun provideRealm(): Realm {
         val config = RealmConfiguration.Builder(
@@ -30,5 +30,5 @@ object DatabaseModule {
     @Provides
     fun provideMongoRepository(realm: Realm): MongoRepository {
         return MongoRepositoryImpl(realm = realm)
-    }
+    }*/
 }
