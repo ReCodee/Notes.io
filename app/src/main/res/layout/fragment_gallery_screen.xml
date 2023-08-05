@@ -19,14 +19,22 @@
         android:elevation="10dp">
 
         <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:src="@drawable/menu_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/menu_icon"
             android:layout_gravity="center_vertical|start"
             android:background="@android:color/transparent"
             android:id="@+id/navigation_drawer" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recent Notes"
+            android:textColor="@color/lightBrown"
+            android:fontFamily="@font/nunito_extrabold"
+            android:layout_gravity="center"
+            android:textSize="22sp">
+        </TextView>
         <!-- <View
              android:layout_width="0dp"
              android:layout_height="0dp"
@@ -35,15 +43,14 @@
 
         <SearchView
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
             android:id="@+id/Search"
             android:layout_gravity="center_vertical|end"
             android:gravity="end"
             android:theme="@style/TextLabel"
             android:queryBackground="@color/skin"
             android:background="@android:color/transparent"
-            android:searchIcon="@drawable/search_icon"
+            android:searchIcon="@mipmap/search_icon"
             android:closeIcon="@drawable/close_icon"/>
 
 
@@ -66,6 +73,28 @@
     tools:context=".gallery.GalleryScreen"
     android:orientation="vertical"
     android:layout_marginTop="20dp">
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--add  several shimmer placeholder layout -->
+
+            <include layout="@layout/gallery_skeleton_layout"></include>
+            <include layout="@layout/gallery_skeleton_layout"></include>
+            <include layout="@layout/gallery_skeleton_layout"></include>
+            <include layout="@layout/gallery_skeleton_layout"></include>
+            <include layout="@layout/gallery_skeleton_layout"></include>
+            <include layout="@layout/gallery_skeleton_layout"></include>
+            <include layout="@layout/gallery_skeleton_layout"></include>
+
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:nestedScrollingEnabled="false"

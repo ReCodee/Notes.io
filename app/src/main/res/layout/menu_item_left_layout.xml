@@ -2,7 +2,7 @@
     android:id="@+id/left_icon"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:src="@drawable/menu_icon"
+    android:src="@mipmap/menu_icon"
     android:padding="8dp"
     android:clickable="true"
     android:layout_gravity="left"

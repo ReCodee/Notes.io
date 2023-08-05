@@ -14,8 +14,17 @@
             android:id="@+id/action_welcome_to_subscription"
             app:destination="@id/SubscriptionFragment" />
         <action
+            android:id="@+id/action_welcome_to_signUp"
+            app:destination="@id/SignUpFragment" />
+        <action
+            android:id="@+id/action_welcome_to_signIn"
+            app:destination="@id/SignInFragment" />
+        <action
             android:id="@+id/action_welcome_to_new_user"
             app:destination="@id/NewUserFragment" />
+        <action
+            android:id="@+id/action_welcome_to_home"
+            app:destination="@id/HomeFragment" />
     </fragment>
 
     <fragment
@@ -40,6 +49,10 @@
         <action
             android:id="@+id/action_signUp_to_newUser"
             app:destination="@id/NewUserFragment" />
+
+        <action
+            android:id="@+id/action_signUp_to_home"
+            app:destination="@id/HomeFragment" />
     </fragment>
 
     <fragment
@@ -50,6 +63,12 @@
         <action
             android:id="@+id/action_signIn_to_home"
             app:destination="@id/HomeFragment" />
+        <action
+            android:id="@+id/action_signIn_to_newUser"
+            app:destination="@id/NewUserFragment" />
+        <action
+            android:id="@+id/action_signIn_to_signUp"
+            app:destination="@id/SignUpFragment" />
     </fragment>
 
     <fragment
@@ -104,6 +123,9 @@
         <action
             android:id="@+id/action_settings_to_theme"
             app:destination="@id/AppThemeFragment" />
+        <action
+            android:id="@+id/action_settings_to_signIn"
+            app:destination="@id/SignInFragment" />
     </fragment>
     <fragment
         android:id="@+id/EditProfileFragment"
@@ -113,6 +135,9 @@
         <action
             android:id="@+id/action_profile_to_settings"
             app:destination="@id/SettingsFragment" />
+        <action
+            android:id="@+id/action_profile_to_signIn"
+            app:destination="@id/SignInFragment" />
     </fragment>
     <fragment
         android:id="@+id/AppThemeFragment"

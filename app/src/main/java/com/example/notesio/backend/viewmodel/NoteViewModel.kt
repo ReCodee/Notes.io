@@ -1,25 +1,17 @@
 package com.example.notesio.backend.viewmodel
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.notesio.MainActivity
 import com.example.notesio.backend.model.Note
-import com.example.notesio.backend.repository.MongoRepository
-import com.example.notesio.backend.repository.MongoRepositoryImpl
-import com.example.notesio.utils.Constants
-import dagger.hilt.android.lifecycle.HiltViewModel
-import io.realm.kotlin.mongodb.App
-import io.realm.kotlin.mongodb.Credentials
-import io.realm.kotlin.mongodb.GoogleAuthType
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.mongodb.kbson.ObjectId
-import javax.inject.Inject
 
 
 class NoteViewModel () : ViewModel() {
@@ -27,78 +19,107 @@ class NoteViewModel () : ViewModel() {
     //val data: LiveData<List<Note>> = mutableData
 
 
+
     init {
+
         viewModelScope.launch {
-            MongoRepositoryImpl.filterData("abhishek27082000@gmail.com").collect {
-                data.value = it
+            delay(1000)
+            getNoteData(onSuccess = {})
+        }
+    }
+
+    fun getNoteData(onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            MainActivity.dbRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val noteList : MutableList<Note> = emptyList<Note>().toMutableList()
+                    val email = MainActivity.auth.currentUser?.email.toString()
+                    if (snapshot.exists())  {
+                        for (noteSnap in snapshot.children)  {
+                            val noteData = noteSnap.getValue(Note::class.java)
+                            if (noteData?.email == email)
+                                noteList.add(noteData)
+                        }
+                    }
+                    data.value = noteList
+                    onSuccess()
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+        }
+    }
+
+    fun getOneTimeNoteData(onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            MainActivity.dbRef.get().addOnSuccessListener {
+                    val noteList : MutableList<Note> = emptyList<Note>().toMutableList()
+                    val email = MainActivity.auth.currentUser?.email.toString()
+                    if (it.exists())  {
+                        for (noteSnap in it.children)  {
+                            val noteData = noteSnap.getValue(Note::class.java)
+                            if (noteData?.email == email)
+                                noteList.add(noteData)
+
+                    }
+                    data.value = noteList
+                    onSuccess()
+                }
             }
         }
     }
 
-    /*fun updateName(name: String) {
-        this.name.value = name
-    }*/
+    fun getOneTimeNoteDataSessionCheck(onSuccess: () -> Unit, onError: (Exception) -> Unit) {
+        viewModelScope.launch {
+            MainActivity.dbRef.get().addOnSuccessListener {
+                val noteList : MutableList<Note> = emptyList<Note>().toMutableList()
+                val email = MainActivity.auth.currentUser?.email.toString()
+                if (it.exists())  {
+                    for (noteSnap in it.children)  {
+                        val noteData = noteSnap.getValue(Note::class.java)
+                        if (noteData?.email == email)
+                            noteList.add(noteData)
 
-    /*fun updateObjectId(id: String) {
-        this.objectId.value = id
-    }*/
-
+                    }
+                    data.value = noteList
+                    onSuccess()
+                }
+            }.addOnFailureListener {
+                onError(it)
+            }
+        }
+    }
 
     @SuppressLint("SuspiciousIndentation")
-    fun insertNote(note:Note) {
+    fun insertNote(note:Note, onSuccess: () -> Unit,
+                   onError: (Exception) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-                /*val notes : MutableList<Note>? = data.value?.toMutableList();
-                notes?.add(note)
-                data.value = notes?.toList()*/
-            MongoRepositoryImpl.insertPerson(note = Note().apply {
-                    _id = note._id
-                    data = note.data
-                    title = note.title
-                    email = note.email
-                })
-            var refreshed : List<Note> = emptyList()
-                MongoRepositoryImpl.getData().collect {
-                refreshed = it
-            }
-            withContext(Dispatchers.Main) {
-                data.value = refreshed
-            }
+            MainActivity.dbRef.child(note.id).setValue(note)
+                .addOnCompleteListener {
+                    onSuccess()
+                }.addOnFailureListener { err ->
+                    onError(err)
+                }
         }
     }
-
     fun updateNote(note:Note) {
         viewModelScope.launch(Dispatchers.IO) {
-                MongoRepositoryImpl.updatePerson(note = Note().apply {
-                    _id = note._id
-                    email = note.email
-                    title = note.title
-                    data = note.data
-                })
+       MainActivity.dbRef.child(note.id).setValue(note)
         }
     }
 
-    /*fun deletePerson() {
+    fun deleteNote(note:Note) {
         viewModelScope.launch {
-            if (objectId.value.isNotEmpty()) {
-                repository.deletePerson(id = ObjectId(hexString = objectId.value))
-            }
+        MainActivity.dbRef.child(note.id).removeValue()
         }
-    }*/
+    }
 
-    /*fun filterData() {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (filtered.value) {
-                repository.getData().collect {
-                    filtered.value = false
-                    name.value = ""
-                    data.value = it
-                }
-            } else {
-                repository.filterData(name = name.value).collect {
-                    filtered.value = true
-                    data.value = it
-                }
-            }
+    fun filterNotes(email:String) {
+        viewModelScope.launch {
+
         }
-    }*/
+    }
+
 }

@@ -1,14 +1,9 @@
 package com.example.notesio.editor
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.*
 import android.text.method.LinkMovementMethod
-import android.text.style.BulletSpan
-import android.text.style.URLSpan
 import android.text.util.Linkify
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,20 +12,18 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.text.HtmlCompat
 import androidx.core.text.util.LinkifyCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.notesio.HtmlParser
+import com.example.notesio.MainActivity
 import com.example.notesio.R
 import com.example.notesio.backend.model.Note
 import com.example.notesio.backend.viewmodel.NoteViewModel
 import com.example.notesio.databinding.FragmentEditorScreenBinding
 import dagger.hilt.android.AndroidEntryPoint
-import io.github.mthli.knife.KnifeText
 import java.util.concurrent.Executors
 
 
@@ -67,6 +60,7 @@ class EditorScreen : Fragment() {
         //val notes : MutableList<Note>? = noteViewModel.data.value?.toMutableList()
         //Log.d("Checking Other Way Round", notes?.size.toString())
         knife = binding.knife
+
         Log.d("Checking Safe Args", args.note.data.toString())
         //binding.knife.setText(Html.fromHtml(args.note.data, HtmlCompat.FROM_HTML_MODE_LEGACY))
         knife.setText(args.note.data)
@@ -88,30 +82,67 @@ class EditorScreen : Fragment() {
         setupLink()*/
         //setupClear()
 
-        binding.saveButton.setOnClickListener{
+        binding.deleteButton.setOnClickListener {
+            val executor = Executors.newSingleThreadExecutor()
+            val handler = Handler(Looper.getMainLooper())
+            val note: Note = Note()
+            if ( args.note.data == "" ) {
+              Toast.makeText(context, "Cannot delete an unsaved note", Toast.LENGTH_SHORT).show()
+            } else {
+                note.email = args.note.email
+                note.title = binding.titleText.text.toString()
+                note.data = knife.text.toString()
+                note.id = args.note.id
+                // notes?.add(note)
+                // noteViewModel.data.value = notes?.toList()
+                executor.execute {
+                    Log.d("Note Data 2", note.data.toString())
+                    noteViewModel.deleteNote(note)
+                    handler.post {
+                        findNavController().navigate(R.id.action_editor_to_home)
+                    }
+                }
+            }
+        }
+
+        binding.backButton.setOnClickListener {
+            findNavController().navigate(R.id.action_editor_to_home)
+        }
+
+        binding.saveButton.setOnClickListener {
             val executor = Executors.newSingleThreadExecutor()
             val handler = Handler(Looper.getMainLooper())
             val note: Note = Note()
             if ( args.note.data == "" ) {
                 //val notes = noteViewModel.data.value?.toMutableList()
-                note.email = "abhishek27082000@gmail.com"
+                note.email = MainActivity.auth.currentUser?.email.toString()
                 Log.d("Checking Get Text", knife.text.toString())
                 note.title = binding.titleText.text.toString()
                 note.data = knife.text.toString()
+                note.id = MainActivity.dbRef.push().key!!
                 //notes?.add(note)
                 //noteViewModel.data.value = notes?.toList()
-                executor.execute {
-                    Log.d("Note Data 1", note.data.toString())
-                    noteViewModel.insertNote(note)
-                    handler.post {
-                        findNavController().navigate(R.id.action_editor_to_home)
+                if ( note.title.isNotEmpty() && note.data.isNotEmpty()) {
+                    executor.execute {
+                        Log.d("Note Data 1", note.data.toString())
+                        noteViewModel.insertNote(note, onSuccess = {
+                            Toast.makeText(context, "Data inserted successfully", Toast.LENGTH_LONG).show()
+                        }, onError = {
+                            Toast.makeText(context, "Error ${it.message}", Toast.LENGTH_LONG).show()
+                        })
+                        handler.post {
+                            findNavController().navigate(R.id.action_editor_to_home)
+                        }
                     }
+                } else {
+                    Toast.makeText(context, "Cannot save an empty note", Toast.LENGTH_SHORT).show()
                 }
+
             } else {
                     note.email = args.note.email
                     note.title = binding.titleText.text.toString()
                     note.data = knife.text.toString()
-                    note._id = args.note._id
+                    note.id = args.note.id
                // notes?.add(note)
                // noteViewModel.data.value = notes?.toList()
                 executor.execute {

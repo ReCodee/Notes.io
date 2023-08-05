@@ -1,4 +1,5 @@
 package com.example.notesio.backend.repository
+import android.content.SharedPreferences
 import android.util.Log
 import com.example.notesio.backend.model.Note
 import com.example.notesio.utils.Constants.APP_ID
@@ -11,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.mongodb.kbson.ObjectId
 
-object MongoRepositoryImpl : MongoRepository {
+object MongoRepositoryImpl {
     /*override fun getData(): Flow<List<Note>> {
         return realm.query<Note>().asFlow().map { it.list }
     }
@@ -42,9 +43,10 @@ object MongoRepositoryImpl : MongoRepository {
         }
     }*/
 
-    private val app = App.create(APP_ID)
+/*    private val app = App.create(APP_ID)
     private val user = app.currentUser
     private lateinit var realm: Realm
+    var sharedPreferences : SharedPreferences? = null
 
     init {
         configureTheRealm()
@@ -71,8 +73,8 @@ object MongoRepositoryImpl : MongoRepository {
         return realm.query<Note>().asFlow().map { it.list }
     }
 
-    override fun filterData(email: String): Flow<List<Note>> {
-        return realm.query<Note>(query = "email CONTAINS[c] $0", email)
+    override fun filterData(data: String): Flow<List<Note>> {
+        return realm.query<Note>(query = "email CONTAINS[c] $0", data)
             .asFlow().map { it.list }
     }
 
@@ -114,6 +116,6 @@ object MongoRepositoryImpl : MongoRepository {
                 Log.d("MongoRepository", "${e.message}")
             }
         }
-    }
+    }*/
 
 }

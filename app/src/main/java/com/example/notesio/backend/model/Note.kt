@@ -13,12 +13,9 @@ import kotlinx.parcelize.Parcelize
 import org.mongodb.kbson.ObjectId
 
 @Parcelize
-class Note : RealmObject, Parcelable {
-    @PrimaryKey
-    var _id: ObjectId = ObjectId.invoke()
-    var owner_id: String = ""
+class Note :  Parcelable {
+    var id: String = ""
     var email: String = ""
     var title: String = ""
     var data: String = ""
-    var timestamp: RealmInstant = RealmInstant.now()
 }

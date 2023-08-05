@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:text="Notes.io"
         android:fontFamily="@font/titanone_regular"
@@ -45,9 +45,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:layout_gravity="center"
         android:orientation="vertical"
         android:textColor="@color/black">
@@ -64,15 +64,18 @@
         <EditText
             android:id="@+id/full_name"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_marginTop="5dp"
             android:textSize="15dp"
+            android:hint="James Shield"
+            android:textColorHint="#8C8173"
+            android:letterSpacing="0.05"
             android:fontFamily="@font/nunito_black"
             android:inputType="textPersonName"
             android:windowSoftInputMode="adjustPan"
             android:textColor="#403B36"
             android:textCursorDrawable="@null"
-            android:paddingLeft="5dp"
+            android:paddingLeft="10dp"
             android:layout_gravity="center"
             android:backgroundTint="@color/white"
             android:background="@drawable/round_corner">
@@ -90,14 +93,17 @@
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_marginTop="5dp"
             android:textSize="15dp"
             android:inputType="textWebEmailAddress"
             android:windowSoftInputMode="adjustPan"
+            android:hint="ShieldJames@gmail.com"
+            android:textColorHint="#8C8173"
+            android:letterSpacing="0.05"
             android:textColor="#403B36"
             android:textCursorDrawable="@null"
-            android:paddingLeft="5dp"
+            android:paddingLeft="10dp"
             android:fontFamily="@font/nunito_black"
             android:layout_gravity="center"
             android:backgroundTint="@color/white"
@@ -115,25 +121,27 @@
         </TextView>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="70dp"
             app:passwordToggleEnabled="true"
             app:passwordToggleDrawable="@drawable/password_toggle"
             app:endIconMode="password_toggle"
+            android:hint="###########"
+            android:textColorHint="#8C8173"
+            android:letterSpacing="0.05"
             android:layout_gravity="center"
             android:textAlignment="center"
             android:theme="@style/TextLabel">
             <EditText
                 android:id="@+id/pass"
                 android:layout_width="match_parent"
-                android:layout_height="49dp"
+                android:layout_height="64dp"
                 android:layout_marginTop="5dp"
                 android:textSize="15dp"
                 android:inputType="textPassword"
-
                 android:windowSoftInputMode="adjustPan"
                 android:textColor="#403B36"
                 android:textCursorDrawable="@null"
-                android:paddingLeft="5dp"
+                android:paddingLeft="10dp"
                 android:fontFamily="@font/nunito_black"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/white"
@@ -141,21 +149,56 @@
             </EditText>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/Google_Button"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:background="@color/skin"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:paddingLeft="10dp"
+            android:text="Continue With "
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/orange"
+            android:fontFamily="@font/nunito_bold">
+        </TextView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="2dp"
+            android:src="@drawable/google_logo">
+        </ImageView>
+    </LinearLayout>
+    <TextView
+        android:layout_width="20dp"
+        android:layout_height="16dp"
+        android:layout_gravity="center"
+        android:text="OR"
+        android:textColor="@color/lightBrown">
+    </TextView>
     <Button
         android:id="@+id/create_account"
-        android:layout_width="250dp"
-        android:layout_height="70dp"
+        android:layout_width="330dp"
+        android:layout_height="80dp"
         android:layout_gravity="center"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="10dp"
         android:text="Create Account"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textAllCaps="false"
         android:fontFamily="@font/nunito_bold"
         android:textSize="25dp"
-        android:backgroundTint="#D9614C">
+        android:backgroundTint="@color/orange">
     </Button>
     <TextView
+        android:id="@+id/to_Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

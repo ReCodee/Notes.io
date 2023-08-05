@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "591253247559",
+    "firebase_url": "https://notesio-10279-default-rtdb.firebaseio.com",
+    "project_id": "notesio-10279",
+    "storage_bucket": "notesio-10279.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591253247559:android:6e24bb98f97704090f8362",
+        "android_client_info": {
+          "package_name": "com.aculate.notesio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591253247559-5j72cei8u1pt30un5h6ki64ujsvps29f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aculate.notesio",
+            "certificate_hash": "f8292d33b2b87ffe7a22a688573f751686294bbb"
+          }
+        },
+        {
+          "client_id": "591253247559-nl7lgn2htmq2s7le8ktj1g2o9hmt3mem.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNm2K5nUFyvnRjTNqVjYq7g3IEz0KReKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591253247559-nl7lgn2htmq2s7le8ktj1g2o9hmt3mem.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -51,7 +51,8 @@
         android:text="Sambhavi Mishra"
         android:fontFamily="@font/nunito_extrabold"
         android:textFontWeight="1000"
-        android:textColor="#403B36">
+        android:textColor="#403B36"
+        android:id="@+id/profile_name">
     </TextView>
     
     <LinearLayout

@@ -11,7 +11,7 @@
     <androidx.appcompat.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:searchIcon="@drawable/search_icon"
+        app:searchIcon="@mipmap/search_icon"
         app:closeIcon="@drawable/check_icon">
     </androidx.appcompat.widget.SearchView>
 
